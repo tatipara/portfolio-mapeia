@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio MapeIA - Mgeo2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Barra de navegação */
+        nav {
+            background: #f5e6d3;
+            padding: 1.5rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.7);
+        }
+
+        nav a:hover {
+            background: #2c3e50;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Seção Hero com imagem de fundo */
+        .hero {
+            height: 100vh;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%234a90e2" width="1200" height="800"/><text x="600" y="400" font-size="48" fill="white" text-anchor="middle">Imagem de Capa 1</text></svg>');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 70px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 3rem 5rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* Seção Sobre Mim */
+        .sobre {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sobre-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .sobre-img {
+            flex: 0 0 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid rgba(255,255,255,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><circle fill="%23764ba2" cx="150" cy="150" r="150"/><text x="150" y="160" font-size="24" fill="white" text-anchor="middle">Foto Perfil 2</text></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .sobre-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .sobre h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .sobre h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: white;
+        }
+
+        /* Seção Meus Mapas */
+        .mapas {
+            padding: 5rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .mapas h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .filtros {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filtro-btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .filtro-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .filtro-btn.active {
+            background: #2c3e50;
+            box-shadow: 0 6px 20px rgba(44, 62, 80, 0.5);
+        }
+
+        .mapas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .mapa-placeholder {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #999;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content {
+                padding: 2rem 3rem;
+            }
+
+            .sobre-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .sobre h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .filtros {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .filtro-btn {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav>
+        <ul>
+            <li><a href="#home">Início</a></li>
+            <li><a href="#sobre">Sobre Mim</a></li>
+            <li><a href="#mapas">Meus Mapas</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+
+    <!-- Seção Hero -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Portfólio do projeto MapeIA - Mgeo2025</h1>
+            <p>SEU NOME</p>
+        </div>
+    </section>
+
+    <!-- Seção Sobre Mim -->
+    <section id="sobre" class="sobre">
+        <div class="container">
+            <div class="sobre-content">
+                <div class="sobre-img"></div>
+                <div class="sobre-text">
+                    <h2>Sobre Mim</h2>
+                    <p>Cartógrafa especializada em criar mapas que transformam dados em visualizações impactantes. Com expertise em diferentes estilos cartográficos, trabalho com mapas de localização, temáticos, analíticos e artísticos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Meus Mapas -->
+    <section id="mapas" class="mapas">
+        <div class="container">
+            <h2>Meus Mapas</h2>
+            
+            <div class="filtros">
+                <button class="filtro-btn active" data-filter="todos">Todos os mapas</button>
+                <button class="filtro-btn" data-filter="localizacao">Mapas de localização</button>
+                <button class="filtro-btn" data-filter="tematicos">Mapas temáticos</button>
+                <button class="filtro-btn" data-filter="analiticos">Mapas analíticos</button>
+                <button class="filtro-btn" data-filter="artisticos">Mapas artísticos</button>
+            </div>
+
+            <div class="mapas-grid">
+                <div class="mapa-placeholder">
+                    Os mapas serão adicionados em breve...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Funcionalidade dos filtros
+        const filtros = document.querySelectorAll('.filtro-btn');
+        
+        filtros.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filtros.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filtro = btn.dataset.filter;
+                console.log('Filtro selecionado:', filtro);
+                // Aqui será implementada a lógica de filtragem quando os mapas forem adicionados
+            });
+        });
+
+        // Scroll suave para navegação
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
